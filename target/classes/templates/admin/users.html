@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản trị Users</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+<nav>
+  <a th:href="@{/employees}">Employees</a>
+  <a th:href="@{/logout}">Logout</a>
+</nav>
+<h2>Quản trị Users</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Role</th>
+      <th>Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="u : ${users}">
+      <td th:text="${u.id}"></td>
+      <td th:text="${u.username}"></td>
+      <td th:text="${u.role}"></td>
+      <td>
+        <form th:action="@{'/admin/users/' + ${u.id} + '/role'}" method="post">
+          <select name="role">
+            <option th:each="r : ${roles}" th:value="${r}" th:text="${r}" th:selected="${r == u.role}"></option>
+          </select>
+          <button type="submit">Đổi role</button>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</body>
+</html>
